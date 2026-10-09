@@ -313,3 +313,84 @@ body > p {
     max-width: 700px;      /* Menu-nya jangan terlalu lebar */
   }
 }
+
+/* ====== KOLOM PENCARIAN & KATEGORI ====== */
+#kontrol-menu {
+  max-width: 1000px;
+  margin: 0 auto 20px;
+}
+
+#input-cari {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  font-size: 15px;
+  font-family: inherit;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+#input-cari:focus {
+  outline: none;
+  border-color: #e67e22;
+}
+
+#tombol-kategori {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  overflow-x: auto;
+  padding-bottom: 6px;
+}
+
+#tombol-kategori::-webkit-scrollbar {
+  height: 4px;
+}
+
+#tombol-kategori::-webkit-scrollbar-thumb {
+  background: #ddd;
+  border-radius: 2px;
+}
+
+.tombol-kategori {
+  white-space: nowrap;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  border-radius: 20px;
+  background: #fff;
+  color: #666;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.tombol-kategori:hover {
+  border-color: #e67e22;
+  color: #e67e22;
+}
+
+.tombol-kategori.aktif {
+  background: #e67e22;
+  color: #fff;
+  border-color: #e67e22;
+}
+
+/* Pesan kalau menu gak ketemu */
+.tidak-ditemukan {
+  grid-column: 1 / -1;
+  text-align: center;
+  color: #aaa;
+  font-style: italic;
+  padding: 40px 0;
+}
+
+/* Sesuaikan posisi dengan keranjang di desktop */
+@media (min-width: 901px) {
+  #kontrol-menu {
+    margin-right: 340px;
+    max-width: 700px;
+    margin-left: auto;
+  }
+}

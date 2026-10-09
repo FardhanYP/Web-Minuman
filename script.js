@@ -1,4 +1,3 @@
-// ====== 1. SIAPIN "KERTAS" KERANJANG ======
 // ====== DATA MENU (EDIT DI SINI BUAT NAMBAH/UBAH MENU) ======
 const daftarMinuman = [
   // --- KOPI & SANGER ---
@@ -78,7 +77,7 @@ const daftarMinuman = [
   { nama: 'Bir Pala',               harga: 20000, kategori: 'Lainnya' },
 ];
 
-// ====== STATE (yang lagi aktif) ======
+// ====== STATE ======
 let keranjang = [];
 let kategoriAktif = 'Semua';
 let kataCari = '';
@@ -88,20 +87,17 @@ const totalHarga = document.getElementById('total-harga');
 
 // ====== BIKIN TOMBOL KATEGORI ======
 function tampilkanTombolKategori() {
-  // Ambil daftar kategori unik dari data, + 'Semua' di depan
   const kategoriUnik = ['Semua', ...new Set(daftarMinuman.map(m => m.kategori))];
   const wadah = document.getElementById('tombol-kategori');
-
   let html = '';
   kategoriUnik.forEach(function (kat) {
     const aktif = kat === kategoriAktif ? 'aktif' : '';
     html += `<button class="tombol-kategori ${aktif}" data-kategori="${kat}">${kat}</button>`;
   });
-
   wadah.innerHTML = html;
 }
 
-// ====== TAMPILIN MENU (dengan filter kategori + pencarian) ======
+// ====== TAMPILIN MENU ======
 function tampilkanMenu() {
   const wadah = document.getElementById('daftar-menu');
   let html = '';
@@ -126,7 +122,6 @@ function tampilkanMenu() {
   if (jumlah === 0) {
     html = '<p class="tidak-ditemukan">Minuman tidak ditemukan 😅</p>';
   }
-
   wadah.innerHTML = html;
 }
 
@@ -134,18 +129,18 @@ function tampilkanMenu() {
 document.getElementById('tombol-kategori').addEventListener('click', function (e) {
   if (e.target.classList.contains('tombol-kategori')) {
     kategoriAktif = e.target.dataset.kategori;
-    tampilkanTombolKategori();   // update tombol mana yang aktif
-    tampilkanMenu();             // render ulang menu
+    tampilkanTombolKategori();
+    tampilkanMenu();
   }
 });
 
-// ====== EVENT: KETIK DI KOLOM PENCARIAN ======
+// ====== EVENT: KETIK DI PENCARIAN ======
 document.getElementById('input-cari').addEventListener('input', function (e) {
   kataCari = e.target.value;
   tampilkanMenu();
 });
 
-// ====== EVENT: KLIK TOMBOL "TAMBAH" ======
+// ====== EVENT: KLIK TOMBOL TAMBAH (CUMA SATU INI) ======
 document.getElementById('daftar-menu').addEventListener('click', function (e) {
   if (e.target.classList.contains('tombol-tambah')) {
     const kartu = e.target.parentElement;
@@ -155,56 +150,34 @@ document.getElementById('daftar-menu').addEventListener('click', function (e) {
   }
 });
 
-// ====== JALANIN PAS HALAMAN DIBUKA ======
+// ====== JALANIN PAS DIBUKA ======
 tampilkanTombolKategori();
 tampilkanMenu();
 
-// ====== PAS TOMBOL "TAMBAH" DIKLIK ======
-// Pakai teknik "event delegation": 1 listener buat semua tombol
-document.getElementById('daftar-menu').addEventListener('click', function (e) {
-  if (e.target.classList.contains('tombol-tambah')) {
-    const kartu = e.target.parentElement;
-    const nama = kartu.dataset.nama;
-    const harga = parseInt(kartu.dataset.harga);
-
-    tambahKeKeranjang(nama, harga);
-  }
-});
-
-// ====== JALANIN PAS HALAMAN DIBUKA ======
-tampilkanMenu();
-
-// ====== 4. FUNGSI NAMBAH KE KERANJANG ======
+// ====== FUNGSI NAMBAH KE KERANJANG ======
 function tambahKeKeranjang(nama, harga) {
-  // Cek: udah ada di keranjang belum?
   const itemAda = keranjang.find(item => item.nama === nama);
-
   if (itemAda) {
-    itemAda.jumlah += 1;         // kalau udah ada, tambah jumlahnya
+    itemAda.jumlah += 1;
   } else {
-    keranjang.push({ nama: nama, harga: harga, jumlah: 1 });  // kalau belum, masukin baru
+    keranjang.push({ nama: nama, harga: harga, jumlah: 1 });
   }
-
-  tampilkanKeranjang();          // gambar ulang tampilannya
+  tampilkanKeranjang();
 }
 
-// ====== 5. FUNGSI NAMPILIN KERANJANG ======
+// ====== FUNGSI NAMPILIN KERANJANG ======
 function tampilkanKeranjang() {
-  // Kalau keranjang kosong
   if (keranjang.length === 0) {
     isiKeranjang.innerHTML = '<p class="kosong">Belum ada pesanan</p>';
     totalHarga.textContent = 'Rp 0';
     return;
   }
 
-  // Kalau ada isinya, gambar tiap item
   let html = '';
   let total = 0;
-
   keranjang.forEach(function (item, index) {
     const subtotal = item.harga * item.jumlah;
     total += subtotal;
-
     html += `
       <div class="item-keranjang">
         <div class="info">
@@ -219,12 +192,11 @@ function tampilkanKeranjang() {
       </div>
     `;
   });
-
   isiKeranjang.innerHTML = html;
   totalHarga.textContent = 'Rp ' + total.toLocaleString('id-ID');
 }
 
-// ====== 6. FUNGSI TAMBAH / KURANG JUMLAH ======
+// ====== FUNGSI TAMBAH / KURANG ======
 function tambahJumlah(index) {
   keranjang[index].jumlah += 1;
   tampilkanKeranjang();
@@ -233,12 +205,12 @@ function tambahJumlah(index) {
 function kurangJumlah(index) {
   keranjang[index].jumlah -= 1;
   if (keranjang[index].jumlah <= 0) {
-    keranjang.splice(index, 1);   // kalau 0, hapus dari keranjang
+    keranjang.splice(index, 1);
   }
   tampilkanKeranjang();
 }
 
-// ====== 7. TOMBOL CHECKOUT → BUKA MODAL ======
+// ====== MODAL & CHECKOUT ======
 const tombolCheckout = document.getElementById('tombol-checkout');
 const modalPemesan = document.getElementById('modal-pemesan');
 const tombolBatal = document.getElementById('tombol-batal');
@@ -246,7 +218,6 @@ const tombolKirim = document.getElementById('tombol-kirim');
 const pesanError = document.getElementById('pesan-error');
 
 tombolCheckout.addEventListener('click', function () {
-  // Cek dulu: keranjang kosong gak?
   if (keranjang.length === 0) {
     alert('Keranjang masih kosong bro, pilih minuman dulu 😄');
     return;
@@ -255,7 +226,6 @@ tombolCheckout.addEventListener('click', function () {
   modalPemesan.classList.add('modal-muncul');
 });
 
-// ====== 8. TOMBOL BATAL → TUTUP MODAL ======
 tombolBatal.addEventListener('click', function () {
   tutupModal();
 });
@@ -266,13 +236,12 @@ function tutupModal() {
   pesanError.textContent = '';
 }
 
-// ====== 9. TOMBOL KIRIM → VALIDASI DULU ======
+// ====== KIRIM PESANAN (WA + SHEETS) ======
 tombolKirim.addEventListener('click', function () {
   const nama = document.getElementById('input-nama').value.trim();
   const alamat = document.getElementById('input-alamat').value.trim();
   const catatan = document.getElementById('input-catatan').value.trim();
 
-  // Validasi simpel
   if (nama === '') {
     pesanError.textContent = 'Nama wajib diisi bro!';
     return;
@@ -282,46 +251,14 @@ tombolKirim.addEventListener('click', function () {
     return;
   }
 
-  // Kalau semua oke, susun data pesanan
   const dataPesanan = {
     pemesan: { nama: nama, alamat: alamat, catatan: catatan },
     pesanan: keranjang,
     total: keranjang.reduce((sum, item) => sum + item.harga * item.jumlah, 0)
   };
 
-  // Sementara: tampilin di console aja dulu
-  console.log('DATA PESANAN:', dataPesanan);
-  alert('Pesanan siap dikirim! (cek Console buat lihat datanya)');
-
-  tutupModal();
-});
-
-// ====== 9. TOMBOL KIRIM → VALIDASI, KIRIM KE SHEETS, KIRIM KE WA ======
-tombolKirim.addEventListener('click', function () {
-  const nama = document.getElementById('input-nama').value.trim();
-  const alamat = document.getElementById('input-alamat').value.trim();
-  const catatan = document.getElementById('input-catatan').value.trim();
-
-  // Validasi
-  if (nama === '') {
-    pesanError.textContent = 'Nama wajib diisi bro!';
-    return;
-  }
-  if (alamat === '') {
-    pesanError.textContent = 'No meja wajib diisi bro!';
-    return;
-  }
-
-  // ====== SUSUN DATA PESANAN ======
-  const dataPesanan = {
-    pemesan: { nama: nama, alamat: alamat, catatan: catatan },
-    pesanan: keranjang,
-    total: keranjang.reduce((sum, item) => sum + item.harga * item.jumlah, 0)
-  };
-
-  // ====== KIRIM KE GOOGLE SHEETS ======
-  const urlSheets = 'https://script.google.com/macros/s/AKfycbwrNZTHcB23Ten7sCLhynbOQERA3LOLGI2j9qVHPuYNgqbxXtLPXpjtt5iNL9gsWlvS/exec'; // <-- GANTI INI BRO!
-
+  // Kirim ke Google Sheets
+  const urlSheets = 'https://script.google.com/macros/s/AKfycbwrNZTHcB23Ten7sCLhynbOQERA3LOLGI2j9qVHPuYNgqbxXtLPXpjtt5iNL9gsWlvS/exec';
   fetch(urlSheets, {
     method: 'POST',
     body: JSON.stringify(dataPesanan)
@@ -330,9 +267,8 @@ tombolKirim.addEventListener('click', function () {
   .then(data => console.log('Tersimpan ke Sheets:', data))
   .catch(err => console.error('Gagal simpan ke Sheets:', err));
 
-  // ====== SUSUN PESAN WA ======
-  const nomorWA = '6282184053433'; // <-- Ini nomor kamu, udah aku isi dari screenshot sebelumnya
-
+  // Kirim ke WA
+  const nomorWA = '6282184053433';
   let pesan = 'Halo, saya mau pesan:%0A%0A';
   pesan += 'Nama: ' + nama + '%0A';
   pesan += 'No. Meja: ' + alamat + '%0A';
@@ -340,24 +276,19 @@ tombolKirim.addEventListener('click', function () {
     pesan += 'Catatan: ' + catatan + '%0A';
   }
   pesan += '%0A--- Pesanan ---%0A';
-
   keranjang.forEach(function (item) {
     const subtotal = item.harga * item.jumlah;
     pesan += item.nama + ' x' + item.jumlah + ' = Rp ' + subtotal.toLocaleString('id-ID') + '%0A';
   });
-
   pesan += '%0A*Total: Rp ' + dataPesanan.total.toLocaleString('id-ID') + '*';
 
-  // Buka WhatsApp
   const urlWA = 'https://wa.me/' + nomorWA + '?text=' + pesan;
   window.open(urlWA, '_blank');
 
-  // Reset keranjang & tutup modal
   keranjang = [];
   tampilkanKeranjang();
   tutupModal();
 
-  // Kosongin form
   document.getElementById('input-nama').value = '';
   document.getElementById('input-alamat').value = '';
   document.getElementById('input-catatan').value = '';

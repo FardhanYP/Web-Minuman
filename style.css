@@ -316,52 +316,58 @@ body > p {
 
 /* ====== KOLOM PENCARIAN & KATEGORI ====== */
 #kontrol-menu {
-  max-width: 1000px;
+  max-width: 700px;
   margin: 0 auto 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 10px;
 }
 
 #input-cari {
   width: 100%;
-  padding: 12px 16px;
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  font-size: 15px;
+  padding: 14px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
   font-family: inherit;
   background: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+  box-sizing: border-box; /* WAJIB! biar padding gak ngerusak lebar */
 }
 
 #input-cari:focus {
   outline: none;
   border-color: #e67e22;
+  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.2);
 }
 
 #tombol-kategori {
   display: flex;
-  gap: 8px;
-  margin-top: 12px;
-  overflow-x: auto;
-  padding-bottom: 6px;
+  gap: 10px;
+  overflow-x: auto; /* biar bisa di-scroll ke samping kalau kepanjangan */
+  padding-bottom: 8px;
 }
 
+/* Bikin scrollbar-nya tipis & cantik */
 #tombol-kategori::-webkit-scrollbar {
-  height: 4px;
+  height: 6px;
 }
-
 #tombol-kategori::-webkit-scrollbar-thumb {
-  background: #ddd;
-  border-radius: 2px;
+  background: #ccc;
+  border-radius: 4px;
 }
 
 .tombol-kategori {
   white-space: nowrap;
-  padding: 8px 16px;
+  padding: 10px 18px;
   border: 1px solid #ddd;
-  border-radius: 20px;
+  border-radius: 25px;
   background: #fff;
   color: #666;
-  font-size: 13px;
-  font-weight: bold;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -369,28 +375,21 @@ body > p {
 .tombol-kategori:hover {
   border-color: #e67e22;
   color: #e67e22;
+  transform: translateY(-2px);
 }
 
 .tombol-kategori.aktif {
   background: #e67e22;
   color: #fff;
   border-color: #e67e22;
+  box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
 }
 
-/* Pesan kalau menu gak ketemu */
-.tidak-ditemukan {
-  grid-column: 1 / -1;
-  text-align: center;
-  color: #aaa;
-  font-style: italic;
-  padding: 40px 0;
-}
-
-/* Sesuaikan posisi dengan keranjang di desktop */
+/* Biar menu & pencarian gak ketutupan keranjang di laptop */
 @media (min-width: 901px) {
-  #kontrol-menu {
+  #kontrol-menu, #daftar-menu {
     margin-right: 340px;
-    max-width: 700px;
     margin-left: auto;
+    max-width: 700px;
   }
 }

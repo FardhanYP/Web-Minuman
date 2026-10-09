@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Beranda Pemesanan</title>
+  </head>
+  <body>
+    <h1>Menu Minuman</h1>
+    <p>Pilih minuman favoritmu!</p>
+
+    <!-- Ini kotak besar buat semua minuman -->
+    <div id="daftar-menu">
+      <!-- Minuman 1 -->
+      <div class="kartu-minuman" data-nama="Teh Dingin" data-harga="8000">
+        <h3>Teh Dingin</h3>
+        <p>Rp 8.000</p>
+        <button class="tombol-tambah">Tambah</button>
+      </div>
+
+      <!-- Minuman 2 -->
+      <div class="kartu-minuman" data-nama="sanger" data-harga="10000">
+        <h3>Sanger</h3>
+        <p>Rp 10.000</p>
+        <button class="tombol-tambah">Tambah</button>
+      </div>
+
+      <!-- Minuman 3 -->
+      <div class="kartu-minuman" data-nama="Kopi" data-harga="8000">
+        <h3>Kopi</h3>
+        <p>Rp 8.000</p>
+        <button class="tombol-tambah">Tambah</button>
+      </div>
+
+      <!-- Minuman 4 -->
+      <div
+        class="kartu-minuman"
+        data-nama="KukuBima Susu Dingin"
+        data-harga="15000"
+      >
+        <h3>KukuBima Susu Dingin</h3>
+        <p>Rp 15.000</p>
+        <button class="tombol-tambah">Tambah</button>
+      </div>
+
+      <!-- Minuman 5 -->
+      <div
+        class="kartu-minuman"
+        data-nama="Lemon Tea Dingin"
+        data-harga="18000"
+      >
+        <h3>Lemon Tea Dingin</h3>
+        <p>Rp 18.000</p>
+        <button class="tombol-tambah">Tambah</button>
+      </div>
+
+      <!-- Minuman 6 -->
+      <div class="kartu-minuman" data-nama="Serai Jahe Madu" data-harga="20000">
+        <h3>Serai Jahe Madu</h3>
+        <p>Rp 20.000</p>
+        <button class="tombol-tambah">Tambah</button>
+      </div>
+    </div>
+
+    <div id="keranjang">
+      <h2>Keranjang</h2>
+      <div id="isi-keranjang">
+        <p class="kosong">Belum ada pesanan</p>
+      </div>
+      <div id="total-baris">
+        <strong>Total:</strong>
+        <strong id="total-harga">Rp 0</strong>
+      </div>
+      <button id="tombol-checkout">Checkout</button>
+    </div>
+
+    <!-- ====== MODAL FORM PEMESAN ====== -->
+    <div id="modal-pemesan" class="modal-sembunyi">
+      <div class="modal-box">
+        <h2>📋 Data Pemesan</h2>
+
+        <label>Nama</label>
+        <input type="text" id="input-nama" placeholder="Nama kamu" />
+
+        <label>No Meja / Alamat</label>
+        <input
+          type="text"
+          id="input-alamat"
+          placeholder="Contoh: Meja 5 / Jl. Merdeka No. 10"
+        />
+
+        <label>Catatan (opsional)</label>
+        <textarea
+          id="input-catatan"
+          placeholder="Contoh: esnya dikit"
+        ></textarea>
+
+        <p id="pesan-error"></p>
+
+        <div class="modal-tombol">
+          <button id="tombol-batal">Batal</button>
+          <button id="tombol-kirim">Kirim Pesanan</button>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

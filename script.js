@@ -296,50 +296,69 @@ tombolKirim.addEventListener('click', function () {
   tutupModal();
 });
 
-// ====== 9. TOMBOL KIRIM → VALIDASI → KIRIM KE WA ======
+// ====== 9. TOMBOL KIRIM → VALIDASI, KIRIM KE SHEETS, KIRIM KE WA ======
 tombolKirim.addEventListener('click', function () {
   const nama = document.getElementById('input-nama').value.trim();
   const alamat = document.getElementById('input-alamat').value.trim();
   const catatan = document.getElementById('input-catatan').value.trim();
 
-  // Validasi simpel
+  // Validasi
   if (nama === '') {
     pesanError.textContent = 'Nama wajib diisi bro!';
     return;
   }
   if (alamat === '') {
-    pesanError.textContent = 'No meja / alamat wajib diisi bro!';
+    pesanError.textContent = 'No meja wajib diisi bro!';
     return;
   }
 
-  // ====== BIKIN PESAN WHATSAPP ======
-  const nomorWA = '6282184053433';
+  // ====== SUSUN DATA PESANAN ======
+  const dataPesanan = {
+    pemesan: { nama: nama, alamat: alamat, catatan: catatan },
+    pesanan: keranjang,
+    total: keranjang.reduce((sum, item) => sum + item.harga * item.jumlah, 0)
+  };
 
-  let pesan = '🍹 *PESANAN BARU*\n\n';
-  pesan += `👤 Nama: ${nama}\n`;
-  pesan += `📍 No Meja: ${alamat}\n`;
+  // ====== KIRIM KE GOOGLE SHEETS ======
+  const urlSheets = 'https://script.google.com/macros/s/AKfycbwrNZTHcB23Ten7sCLhynbOQERA3LOLGI2j9qVHPuYNgqbxXtLPXpjtt5iNL9gsWlvS/exec'; // <-- GANTI INI BRO!
+
+  fetch(urlSheets, {
+    method: 'POST',
+    body: JSON.stringify(dataPesanan)
+  })
+  .then(res => res.text())
+  .then(data => console.log('Tersimpan ke Sheets:', data))
+  .catch(err => console.error('Gagal simpan ke Sheets:', err));
+
+  // ====== SUSUN PESAN WA ======
+  const nomorWA = '6282184053433'; // <-- Ini nomor kamu, udah aku isi dari screenshot sebelumnya
+
+  let pesan = 'Halo, saya mau pesan:%0A%0A';
+  pesan += 'Nama: ' + nama + '%0A';
+  pesan += 'No. Meja: ' + alamat + '%0A';
   if (catatan !== '') {
-    pesan += `📝 Catatan: ${catatan}\n`;
+    pesan += 'Catatan: ' + catatan + '%0A';
   }
-  pesan += '\n━━━━━━━━━━━━━━\n';
-  pesan += '*Detail Pesanan:*\n\n';
+  pesan += '%0A--- Pesanan ---%0A';
 
-  let total = 0;
   keranjang.forEach(function (item) {
     const subtotal = item.harga * item.jumlah;
-    total += subtotal;
-    pesan += `• ${item.nama} x${item.jumlah} = Rp ${subtotal.toLocaleString('id-ID')}\n`;
+    pesan += item.nama + ' x' + item.jumlah + ' = Rp ' + subtotal.toLocaleString('id-ID') + '%0A';
   });
 
-  pesan += '\n━━━━━━━━━━━━━━\n';
-  pesan += `💰 *TOTAL: Rp ${total.toLocaleString('id-ID')}*\n`;
+  pesan += '%0A*Total: Rp ' + dataPesanan.total.toLocaleString('id-ID') + '*';
 
-  // ====== BUKA WHATSAPP ======
-  const url = `https://api.whatsapp.com/send?phone=${nomorWA}&text=${encodeURIComponent(pesan)}`;
-  window.open(url, '_blank');
+  // Buka WhatsApp
+  const urlWA = 'https://wa.me/' + nomorWA + '?text=' + pesan;
+  window.open(urlWA, '_blank');
 
-  // Reset & tutup
-  tutupModal();
+  // Reset keranjang & tutup modal
   keranjang = [];
   tampilkanKeranjang();
+  tutupModal();
+
+  // Kosongin form
+  document.getElementById('input-nama').value = '';
+  document.getElementById('input-alamat').value = '';
+  document.getElementById('input-catatan').value = '';
 });

@@ -278,7 +278,7 @@ tombolKirim.addEventListener('click', function () {
     return;
   }
   if (alamat === '') {
-    pesanError.textContent = 'No meja / alamat wajib diisi bro!';
+    pesanError.textContent = 'No meja wajib diisi bro!';
     return;
   }
 
@@ -317,7 +317,7 @@ tombolKirim.addEventListener('click', function () {
 
   let pesan = '🍹 *PESANAN BARU*\n\n';
   pesan += `👤 Nama: ${nama}\n`;
-  pesan += `📍 No Meja/Alamat: ${alamat}\n`;
+  pesan += `📍 No Meja: ${alamat}\n`;
   if (catatan !== '') {
     pesan += `📝 Catatan: ${catatan}\n`;
   }

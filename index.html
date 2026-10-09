@@ -7,61 +7,19 @@
     <title>Beranda Pemesanan</title>
   </head>
   <body>
-    <h1>MENU MEULABOH PREMIUM</h1>
+    <h1>Menu Minuman</h1>
     <p>Pilih minuman favoritmu!</p>
 
-    <!-- Ini kotak besar buat semua minuman -->
-    <div id="daftar-menu">
-      <!-- Minuman 1 -->
-      <div class="kartu-minuman" data-nama="Teh Dingin" data-harga="8000">
-        <h3>Teh Dingin</h3>
-        <p>Rp 8.000</p>
-        <button class="tombol-tambah">Tambah</button>
-      </div>
-
-      <!-- Minuman 2 -->
-      <div class="kartu-minuman" data-nama="sanger" data-harga="10000">
-        <h3>Sanger</h3>
-        <p>Rp 10.000</p>
-        <button class="tombol-tambah">Tambah</button>
-      </div>
-
-      <!-- Minuman 3 -->
-      <div class="kartu-minuman" data-nama="Kopi" data-harga="8000">
-        <h3>Kopi</h3>
-        <p>Rp 8.000</p>
-        <button class="tombol-tambah">Tambah</button>
-      </div>
-
-      <!-- Minuman 4 -->
-      <div
-        class="kartu-minuman"
-        data-nama="KukuBima Susu Dingin"
-        data-harga="15000"
-      >
-        <h3>KukuBima Susu Dingin</h3>
-        <p>Rp 15.000</p>
-        <button class="tombol-tambah">Tambah</button>
-      </div>
-
-      <!-- Minuman 5 -->
-      <div
-        class="kartu-minuman"
-        data-nama="Lemon Tea Dingin"
-        data-harga="18000"
-      >
-        <h3>Lemon Tea Dingin</h3>
-        <p>Rp 18.000</p>
-        <button class="tombol-tambah">Tambah</button>
-      </div>
-
-      <!-- Minuman 6 -->
-      <div class="kartu-minuman" data-nama="Serai Jahe Madu" data-harga="20000">
-        <h3>Serai Jahe Madu</h3>
-        <p>Rp 20.000</p>
-        <button class="tombol-tambah">Tambah</button>
+    <!-- ====== KOLOM PENCARIAN & KATEGORI ====== -->
+    <div id="kontrol-menu">
+      <input type="text" id="input-cari" placeholder="🔍 Cari minuman..." />
+      <div id="tombol-kategori">
+        <!-- Tombol kategori bakal otomatis dibikin sama JavaScript -->
       </div>
     </div>
+
+    <!-- Ini kotak besar buat semua minuman -->
+    <div id="daftar-menu"></div>
 
     <div id="keranjang">
       <h2>Keranjang</h2>

@@ -306,3 +306,10 @@ body > p {
 #tombol-kirim:hover {
   background: #229954;
 }
+
+@media (min-width: 901px) {
+  #daftar-menu {
+    margin-right: 340px;   /* Kasih ruang buat keranjang */
+    max-width: 700px;      /* Menu-nya jangan terlalu lebar */
+  }
+}

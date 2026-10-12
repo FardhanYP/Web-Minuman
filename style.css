@@ -393,3 +393,132 @@ body > p {
     max-width: 700px;
   }
 }
+
+/* ====== MODAL STRUK ====== */
+.struk-box {
+  background: #fff;
+  border-radius: 14px;
+  padding: 24px;
+  width: 100%;
+  max-width: 380px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+#isi-struk {
+  font-family: 'Courier New', monospace;   /* font ala struk kasir */
+  color: #000;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+#isi-struk .header-struk {
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+#isi-struk .header-struk h2 {
+  font-size: 18px;
+  margin-bottom: 4px;
+  letter-spacing: 1px;
+}
+
+#isi-struk .header-struk p {
+  font-size: 11px;
+  color: #555;
+}
+
+#isi-struk .garis {
+  border-top: 1px dashed #999;
+  margin: 10px 0;
+}
+
+#isi-struk .info-pemesan p {
+  margin: 2px 0;
+}
+
+#isi-struk .item-struk {
+  display: flex;
+  justify-content: space-between;
+  margin: 4px 0;
+}
+
+#isi-struk .item-struk .nama-item {
+  flex: 1;
+}
+
+#isi-struk .item-struk .harga-item {
+  text-align: right;
+  white-space: nowrap;
+}
+
+#isi-struk .total-baris {
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+  font-size: 15px;
+  margin-top: 8px;
+}
+
+#isi-struk .footer-struk {
+  text-align: center;
+  margin-top: 14px;
+  font-size: 11px;
+  color: #555;
+}
+
+.struk-tombol {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.struk-tombol button {
+  flex: 1;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#tombol-tutup-struk {
+  background: #eee;
+  color: #666;
+}
+
+#tombol-tutup-struk:hover {
+  background: #ddd;
+}
+
+#tombol-print {
+  background: #e67e22;
+  color: #fff;
+}
+
+#tombol-print:hover {
+  background: #d35400;
+}
+
+/* ====== PENGATURAN PAS DI-PRINT ====== */
+@media print {
+  body * {
+    visibility: hidden;      /* sembunyiin semua */
+  }
+  #modal-struk, #modal-struk * {
+    visibility: visible;     /* kecuali struknya */
+  }
+  #modal-struk {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    display: block !important;
+  }
+  .struk-tombol {
+    display: none;           /* tombolnya gak usah ke-print */
+  }
+}

@@ -285,6 +285,10 @@ tombolKirim.addEventListener('click', function () {
   const urlWA = 'https://wa.me/' + nomorWA + '?text=' + pesan;
   window.open(urlWA, '_blank');
 
+  // Tampilkan struk
+  tampilkanStruk(dataPesanan);
+
+  // Reset keranjang & tutup modal pemesan
   keranjang = [];
   tampilkanKeranjang();
   tutupModal();
@@ -292,4 +296,74 @@ tombolKirim.addEventListener('click', function () {
   document.getElementById('input-nama').value = '';
   document.getElementById('input-alamat').value = '';
   document.getElementById('input-catatan').value = '';
+});
+
+// ====== FUNGSI TAMPILIN STRUK ======
+function tampilkanStruk(data) {
+  const modalStruk = document.getElementById('modal-struk');
+  const isiStruk = document.getElementById('isi-struk');
+
+  // Tanggal & jam sekarang
+  const sekarang = new Date();
+  const tanggal = sekarang.toLocaleDateString('id-ID', { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const jam = sekarang.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
+
+  // Susun HTML struk
+  let html = `
+    <div class="header-struk">
+      <h2>MEULABOH PREMIUM</h2>
+      <p>Struk Pesanan</p>
+    </div>
+    <div class="garis"></div>
+    <div class="info-pemesan">
+      <p>Tanggal : ${tanggal} ${jam}</p>
+      <p>Nama    : ${data.pemesan.nama}</p>
+      <p>Meja    : ${data.pemesan.alamat}</p>
+      ${data.pemesan.catatan ? `<p>Catatan : ${data.pemesan.catatan}</p>` : ''}
+    </div>
+    <div class="garis"></div>
+  `;
+
+  // Item pesanan
+  data.pesanan.forEach(function (item) {
+    const subtotal = item.harga * item.jumlah;
+    html += `
+      <div class="item-struk">
+        <span class="nama-item">${item.nama} x${item.jumlah}</span>
+        <span class="harga-item">Rp ${subtotal.toLocaleString('id-ID')}</span>
+      </div>
+    `;
+  });
+
+  // Total
+  html += `
+    <div class="garis"></div>
+    <div class="total-baris">
+      <span>TOTAL</span>
+      <span>Rp ${data.total.toLocaleString('id-ID')}</span>
+    </div>
+    <div class="garis"></div>
+    <div class="footer-struk">
+      <p>Terima kasih sudah memesan!</p>
+      <p>~ Selamat menikmati ~</p>
+    </div>
+  `;
+
+  isiStruk.innerHTML = html;
+
+  // Munculin modal struk
+  modalStruk.classList.remove('modal-sembunyi');
+  modalStruk.classList.add('modal-muncul');
+}
+
+// ====== TOMBOL TUTUP STRUK ======
+document.getElementById('tombol-tutup-struk').addEventListener('click', function () {
+  const modalStruk = document.getElementById('modal-struk');
+  modalStruk.classList.remove('modal-muncul');
+  modalStruk.classList.add('modal-sembunyi');
+});
+
+// ====== TOMBOL PRINT ======
+document.getElementById('tombol-print').addEventListener('click', function () {
+  window.print();
 });

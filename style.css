@@ -86,16 +86,10 @@ body > p {
 
 /* ====== PANEL KERANJANG ====== */
 #keranjang {
-  position: fixed;            /* nempel di layar, gak ikut scroll */
-  top: 20px;
-  right: 20px;
-  width: 300px;
   background: #fff;
   border-radius: 14px;
   padding: 20px;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  max-height: 90vh;
-  overflow-y: auto;
 }
 
 #keranjang h2 {
@@ -385,15 +379,6 @@ body > p {
   box-shadow: 0 4px 10px rgba(230, 126, 34, 0.3);
 }
 
-/* Biar menu & pencarian gak ketutupan keranjang di laptop */
-@media (min-width: 901px) {
-  #kontrol-menu, #daftar-menu {
-    margin-right: 340px;
-    margin-left: auto;
-    max-width: 700px;
-  }
-}
-
 /* ====== MODAL STRUK ====== */
 .struk-box {
   background: #fff;
@@ -521,4 +506,225 @@ body > p {
   .struk-tombol {
     display: none;           /* tombolnya gak usah ke-print */
   }
+}
+
+/* ====== NAVIGASI BAR ====== */
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #6b4226;
+  padding: 15px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.nav-brand {
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto; /* Biar bisa digeser di HP */
+}
+
+.nav-link {
+  background: transparent;
+  border: none;
+  color: #e0d0c0;
+  padding: 8px 16px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 20px;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.nav-link:hover {
+  color: #fff;
+  background: rgba(255,255,255,0.1);
+}
+
+.nav-link.aktif {
+  background: #e67e22;
+  color: #fff;
+}
+
+/* ====== SISTEM HALAMAN (NAVIGASI) ====== */
+.halaman {
+  display: none; /* Sembunyiin semua halaman */
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.halaman.aktif {
+  display: block; /* Cuma nampilin halaman yang aktif */
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== STYLING BERANDA ====== */
+.hero {
+  text-align: center;
+  padding: 60px 20px;
+  background: #fff;
+  border-radius: 14px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.hero h1 {
+  font-size: 32px;
+  color: #6b4226;
+  margin-bottom: 10px;
+}
+
+.hero p {
+  color: #666;
+  font-size: 16px;
+}
+
+.section-title h2 {
+  color: #6b4226;
+  font-size: 24px;
+  margin-bottom: 20px;
+  border-bottom: 3px solid #e67e22;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+.best-seller-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+}
+
+.kartu-best {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  position: relative;
+}
+
+.kartu-best h3 {
+  color: #6b4226;
+  margin-bottom: 8px;
+}
+
+.kartu-best p {
+  color: #e67e22;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.badge {
+  position: absolute;
+  top: -10px;
+  right: 10px;
+  background: #e74c3c;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 10px;
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+@media (max-width: 700px) {
+  #navbar {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .nav-menu {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
+
+/* ====== BUBBLE NOTIF KERANJANG ====== */
+.notif-bubble {
+  background: #e74c3c;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  margin-left: 5px;
+  vertical-align: middle;
+  display: inline-block;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* ====== STYLING KONTROL MAKANAN (SAMA KAYAK MINUMAN) ====== */
+#kontrol-makanan {
+  max-width: 700px;
+  margin: 0 auto 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0 10px;
+}
+
+#input-cari-makanan {
+  width: 100%;
+  padding: 14px 20px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 16px;
+  font-family: inherit;
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s;
+  box-sizing: border-box;
+}
+
+#input-cari-makanan:focus {
+  outline: none;
+  border-color: #e67e22;
+  box-shadow: 0 4px 15px rgba(230, 126, 34, 0.2);
+}
+
+#tombol-kategori-makanan {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+#tombol-kategori-makanan::-webkit-scrollbar {
+  height: 6px;
+}
+#tombol-kategori-makanan::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+
+/* ====== TOMBOL BEST SELLER ====== */
+.tombol-tambah-best {
+  background: #e67e22;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 15px;
+  width: 100%;
+}
+
+.tombol-tambah-best:hover {
+  background: #d35400;
 }
